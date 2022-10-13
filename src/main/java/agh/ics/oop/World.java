@@ -137,22 +137,29 @@ public class World {
 
     public static void main(String[] args) {
         System.out.println("System wystartował!");
-        if(args.length == 0){
-            System.out.println("BRAK ARGUMENTÓW");
-            System.out.println("System zakończył działanie!");
-            return;
-        }
+//        if(args.length == 0){
+//            System.out.println("BRAK ARGUMENTÓW");
+//            System.out.println("System zakończył działanie!");
+//            return;
+//        }
+//
+////        System.out.println("CZYSTE ARGSY");
+////        run(args);
+//
+//        //Direction[] dirs = convert(args);
+//        //run(dirs)
+//
+//
+//        // z wykorzystaniem streamów
+//        List<Direction> dirs = convertStream(args);
+//        runStream(dirs);
 
-//        System.out.println("CZYSTE ARGSY");
-//        run(args);
 
-        //Direction[] dirs = convert(args);
-        //run(dirs)
-
-
-        // z wykorzystaniem streamów
-        List<Direction> dirs = convertStream(args);
-        runStream(dirs);
+        Vector2d position1 = new Vector2d(1,2);
+        System.out.println(position1);
+        Vector2d position2 = new Vector2d(-2,1);
+        System.out.println(position2);
+        System.out.println(position1.add(position2));
 
 
         System.out.println("System zakończył działanie!");
