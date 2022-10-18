@@ -2,7 +2,7 @@ package agh.ics.oop;
 
 import org.junit.jupiter.api.Test;
 
-import static agh.ics.oop.MapDirection.*;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
