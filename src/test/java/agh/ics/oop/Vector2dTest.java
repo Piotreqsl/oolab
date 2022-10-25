@@ -44,6 +44,7 @@ class Vector2dTest {
     @Test
     void add() {
         assertEquals(new Vector2d(10,10), new Vector2d(9,1).add(new Vector2d(1,9)));
+        assertEquals(new Vector2d(0,0), new Vector2d(2,1).add(new Vector2d(-2,-1)));
     }
 
     @Test
@@ -53,16 +54,19 @@ class Vector2dTest {
 
     @Test
     void upperRight() {
+        assertEquals(new Vector2d(-5,0).upperRight(new Vector2d(0,-5)), new Vector2d(0,0));
         assertEquals(new Vector2d(6,6), new Vector2d(6,-999).upperRight(new Vector2d(-2321, 6)));
     }
 
     @Test
     void lowerLeft() {
+        assertEquals(new Vector2d(2,1), new Vector2d(2,1).lowerLeft(new Vector2d(6,7)));
         assertEquals(new Vector2d(6,6), new Vector2d(6,999).lowerLeft(new Vector2d(2321, 6)));
     }
 
     @Test
     void opposite() {
+        assertEquals(new Vector2d(0,0), new Vector2d(0,0).opposite());
         assertEquals(new Vector2d(-8, -7), new Vector2d(8, 7).opposite());
     }
 
