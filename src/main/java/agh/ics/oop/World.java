@@ -1,11 +1,12 @@
 package agh.ics.oop;
 
-import java.lang.reflect.Array;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
+import javax.swing.*;
 public class World {
+
 
 
     public static void run(){
@@ -139,29 +140,14 @@ public class World {
         System.out.println("System wystartował!");
 
 
-        Vector2d position1 = new Vector2d(1,2);
-        System.out.println(position1);
-        Vector2d position2 = new Vector2d(-2,1);
-        System.out.println(position2);
-        System.out.println(position1.add(position2));
-
-        Animal zwierzak = new Animal();
-        System.out.println(zwierzak);
-        zwierzak.move(MoveDirection.RIGHT);
-        zwierzak.move(MoveDirection.FORWARD);
-        zwierzak.move(MoveDirection.FORWARD);
-        zwierzak.move(MoveDirection.FORWARD);
-        System.out.println(zwierzak);
-
-        OptionsParser optionsParser = new OptionsParser();
-        MoveDirection[] moveDirections = optionsParser.parse(args);
-
-        for(var str: moveDirections){
-            System.out.println(str);
-        }
-
+        MoveDirection[] directions = new OptionsParser().parse(args);
+        RectangularMap map = new RectangularMap(5, 5);
+        Vector2d[] positions = {new Vector2d(2, 2), new Vector2d(3, 4)};
+        IEngine engine = new SimulationEngine(directions, map, positions);
+        engine.run();
 
         System.out.println("System zakończył działanie!");
     }
+
 
 }

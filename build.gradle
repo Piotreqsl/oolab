@@ -1,6 +1,7 @@
 plugins {
     id 'application'
     id 'java'
+
 }
 
 group 'org.example'
@@ -24,8 +25,10 @@ java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(17))
     }
+
 }
 
 test {
     useJUnitPlatform()
 }
+

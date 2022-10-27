@@ -14,10 +14,10 @@ public enum MapDirection {
     @Override
     public String toString() {
         return switch (this) {
-            case EAST -> "Wschod";
-            case WEST -> "Zachod";
-            case SOUTH -> "Poludnie";
-            case NORTH -> "Polnoc";
+            case EAST -> "E";
+            case WEST -> "W";
+            case SOUTH -> "S";
+            case NORTH -> "N";
         };
     }
 
