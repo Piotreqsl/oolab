@@ -1,8 +1,9 @@
 plugins {
     id 'application'
     id 'java'
-
+    id "org.openjfx.javafxplugin" version "0.0.13"
 }
+
 
 group 'org.example'
 version '1.0-SNAPSHOT'
@@ -25,7 +26,10 @@ java {
     toolchain {
         languageVersion.set(JavaLanguageVersion.of(17))
     }
+}
 
+javafx {
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
 test {

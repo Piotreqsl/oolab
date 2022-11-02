@@ -1,5 +1,7 @@
 package agh.ics.oop;
 
+import javafx.scene.control.Label;
+
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -42,6 +44,8 @@ public class SimulationEngine implements IEngine{
         JFrame jFrame = new JFrame();
         JTextArea text = new JTextArea();
         text.setText(mapVisualizer.draw(lower, upper));
+
+
 
         jFrame.add(text);
         jFrame.setSize(500,500);
