@@ -9,7 +9,7 @@ public class WorldTest {
     public void orentationTest() {
         RectangularMap testMap = new RectangularMap(5,5);
         Animal animal = new Animal(testMap, new Vector2d(2,2));
-        // starting direction is NORTH
+
         animal.move(MoveDirection.RIGHT);
         animal.move(MoveDirection.RIGHT);
         animal.move(MoveDirection.RIGHT);
@@ -27,11 +27,11 @@ public class WorldTest {
 
         animal.move(MoveDirection.RIGHT);
 
-        // we are back now heading north
+
 
         animal.move(MoveDirection.LEFT);
         animal.move(MoveDirection.RIGHT);
-        // nothing should change
+
         Assertions.assertEquals(MapDirection.NORTH, animal.getOrientation());
     }
 
@@ -39,7 +39,7 @@ public class WorldTest {
     public void movementTest() {
         RectangularMap testMap = new RectangularMap(5,5);
         Animal animal = new Animal(testMap, new Vector2d(2,2));
-        // starting at 2,2
+
         animal.move(MoveDirection.FORWARD);
         animal.move(MoveDirection.FORWARD);
         animal.move(MoveDirection.FORWARD);
@@ -47,18 +47,18 @@ public class WorldTest {
         animal.move(MoveDirection.FORWARD);
         animal.move(MoveDirection.FORWARD);
         animal.move(MoveDirection.FORWARD);
-        //should be 2,4 and heading north
+
         Assertions.assertEquals(new Vector2d(2, 5), animal.getPosition());
 
         animal.move(MoveDirection.RIGHT);
-        //heading east so we go forward now
+
         animal.move(MoveDirection.FORWARD);
         animal.move(MoveDirection.FORWARD);
         animal.move(MoveDirection.FORWARD);
         animal.move(MoveDirection.FORWARD);
         animal.move(MoveDirection.FORWARD);
 
-        //now the position should be 4,4
+
         Assertions.assertEquals(new Vector2d(5, 5), animal.getPosition());
 
 
@@ -71,7 +71,7 @@ public class WorldTest {
 
         Assertions.assertEquals(new Vector2d(0, 5), animal.getPosition());
 
-        //heading east and animal is at (0,4) so now lets try to get to (0,0)
+
 
         animal.move(MoveDirection.LEFT);
         animal.move(MoveDirection.BACKWARD);
@@ -89,33 +89,22 @@ public class WorldTest {
         Animal animal = new Animal(testMap, new Vector2d(2,2));
         animal.move(MoveDirection.RIGHT);
 
-        //starting position is (2,2), heading east
-
-        //right border of the map
         for (int i = 0; i < 20; i++)
             animal.move(MoveDirection.FORWARD);
         Assertions.assertEquals(new Vector2d(5, 2), animal.getPosition());
-
-
         animal.move(MoveDirection.LEFT);
 
-        //heading north
-
-        //top border of the map
         for (int i = 0; i < 20; i++)
             animal.move(MoveDirection.FORWARD);
         Assertions.assertEquals(new Vector2d(5, 5), animal.getPosition());
-
         animal.move(MoveDirection.LEFT);
 
-        //left border of the map
         for (int i = 0; i < 20; i++)
             animal.move(MoveDirection.FORWARD);
         Assertions.assertEquals(new Vector2d(0, 5), animal.getPosition());
 
         animal.move(MoveDirection.LEFT);
 
-        //bottom border of the map
         for (int i = 0; i < 20; i++)
             animal.move(MoveDirection.FORWARD);
         Assertions.assertEquals(new Vector2d(0, 0), animal.getPosition());

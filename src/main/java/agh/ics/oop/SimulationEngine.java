@@ -8,11 +8,11 @@ import java.util.concurrent.TimeUnit;
 public class SimulationEngine implements IEngine{
 
     private MoveDirection[] moveDirections;
-    private RectangularMap map;
+    private IWorldMap map;
     private Vector2d[] initials;
     private ArrayList<Animal> animals;
 
-    public SimulationEngine(MoveDirection[] tab, RectangularMap map, Vector2d[] initials){
+    public SimulationEngine(MoveDirection[] tab, IWorldMap map, Vector2d[] initials){
         this.moveDirections = tab;
         this.map = map;
         this.initials = initials;
@@ -20,7 +20,7 @@ public class SimulationEngine implements IEngine{
 
         for(var pos : initials){
             Animal newAnimal = new Animal(map,pos);
-            if( map.place(newAnimal))
+            if(map.place(newAnimal))
                 animals.add(newAnimal);
 
         }
@@ -38,28 +38,23 @@ public class SimulationEngine implements IEngine{
 
     @Override
     public void run() {
-        MapVisualizer mapVisualizer = new MapVisualizer(this.map);
-        Vector2d lower = new Vector2d(0,0);
-        Vector2d upper = new Vector2d(map.width, map.height);
+
         JFrame jFrame = new JFrame();
         JTextArea text = new JTextArea();
-        text.setText(mapVisualizer.draw(lower, upper));
-
-
-
+        text.setText(map.toString());
         jFrame.add(text);
-        jFrame.setSize(500,500);
-        jFrame.show();
+        jFrame.setSize(300,300);
+        jFrame.setVisible(true);
         int numOfAnimals = initials.length;
         int numOfMoves = moveDirections.length;
         int i = 0;
         while (i < numOfMoves){
             animals.get(i%numOfAnimals).move(moveDirections[i]);
             sleep();
-            //System.out.println(animals.get(0));
-            text.setText(mapVisualizer.draw(lower, upper));
+            text.setText(map.toString());
             i++;
         }
+
 
 
     }

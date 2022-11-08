@@ -3,22 +3,24 @@ package agh.ics.oop;
 
 
 
-public class Animal {
-    private Vector2d position = new Vector2d(2,2);
+public class Animal extends AbstractWorldMapElement {
+
     private MapDirection orientation = MapDirection.NORTH;
      IWorldMap map;
 
     public Animal(){
+        super(new Vector2d(2,2));
         this.map = new RectangularMap(4,4);
     }
 
     public Animal(IWorldMap map){
+        super(new Vector2d(2,2));
         this.map = map;
     }
 
     public Animal(IWorldMap map, Vector2d initialPosition){
+        super(initialPosition);
         this.map = map;
-        this.position = initialPosition;
     }
 
     @Override
@@ -28,9 +30,7 @@ public class Animal {
 
 
 
-    public boolean isAt(Vector2d position){
-            return this.position.equals(position);
-    }
+
 
     public void move(MoveDirection direction){
         switch (direction){
@@ -54,8 +54,6 @@ public class Animal {
                     this.position = allegedNew;
                 }
             }
-
-
         }
     }
 
