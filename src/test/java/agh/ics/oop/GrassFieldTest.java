@@ -11,8 +11,8 @@ public class GrassFieldTest {
         GrassField map = new GrassField(10);
         Assertions.assertTrue(map.canMoveTo(new Vector2d(1, 0)));
         Assertions.assertTrue(map.canMoveTo(new Vector2d(1, 1)));
-        Assertions.assertTrue(map.canMoveTo(new Vector2d(1, 2)));
-        Assertions.assertTrue(map.canMoveTo(new Vector2d(1, 2)));
+        Assertions.assertTrue(map.canMoveTo(new Vector2d(54, 2)));
+        Assertions.assertTrue(map.canMoveTo(new Vector2d(1, 5)));
         Assertions.assertTrue(map.canMoveTo(new Vector2d(Integer.MAX_VALUE - 1, Integer.MAX_VALUE - 1)));
         map.place(new Animal(map, new Vector2d(3, 3)));
         Assertions.assertFalse(map.canMoveTo(new Vector2d(3, 3)));
@@ -21,11 +21,9 @@ public class GrassFieldTest {
     @Test
     public void placeTest() {
         GrassField map = new GrassField(10);
-        Assertions.assertTrue(map.place(new Animal(map, new Vector2d(-1, -1))), "Negative coords");
-
-
-        Assertions.assertTrue(map.place(new Animal(map, new Vector2d(3, 1))), "Can place at 3,1");
-        Assertions.assertFalse(map.place(new Animal(map, new Vector2d(3, 1))), "Cant place again");
+        Assertions.assertTrue(map.place(new Animal(map, new Vector2d(-1, -1))));
+        Assertions.assertTrue(map.place(new Animal(map, new Vector2d(9, 9))));
+        Assertions.assertFalse(map.place(new Animal(map, new Vector2d(9, 9))), "Nie można zduplikować");
 
     }
 
