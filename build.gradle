@@ -1,7 +1,7 @@
 plugins {
     id 'application'
     id 'java'
-    id "org.openjfx.javafxplugin" version "0.0.13"
+    id 'org.openjfx.javafxplugin' version '0.0.10'
 }
 
 
@@ -10,6 +10,10 @@ version '1.0-SNAPSHOT'
 
 repositories {
     mavenCentral()
+}
+javafx {
+    version = "17"
+    modules = [ 'javafx.controls' ]
 }
 
 application {
@@ -28,9 +32,7 @@ java {
     }
 }
 
-javafx {
-    modules = [ 'javafx.controls', 'javafx.fxml' ]
-}
+
 
 test {
     useJUnitPlatform()

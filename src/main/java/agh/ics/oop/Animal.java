@@ -13,11 +13,13 @@ public class Animal extends AbstractWorldMapElement {
     public Animal(){
         super(new Vector2d(2,2));
         this.map = new RectangularMap(4,4);
+        this.observers = new ArrayList<>();
     }
 
     public Animal(IWorldMap map){
         super(new Vector2d(2,2));
         this.map = map;
+        this.observers = new ArrayList<>();
     }
 
     public Animal(IWorldMap map, Vector2d initialPosition){
@@ -61,13 +63,6 @@ public class Animal extends AbstractWorldMapElement {
         }
     }
 
-    void addObserver(IPositionChangeObserver observer) {
-        this.observers.add(observer);
-    }
-
-    void removeObserver(IPositionChangeObserver observer) {
-        this.observers.remove(observer);
-    }
 
     void positionChanged(Vector2d newPos) {
         for (IPositionChangeObserver observer : observers)

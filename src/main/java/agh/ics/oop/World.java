@@ -1,6 +1,9 @@
 package agh.ics.oop;
 
 
+import agh.ics.oop.gui.App;
+import javafx.application.Application;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -137,16 +140,7 @@ public class World {
 
 
     public static void main(String[] args) {
-        System.out.println("System wystartował!");
-
-
-        MoveDirection[] directions = new OptionsParser().parse(args);
-        IWorldMap map = new GrassField(10);
-        Vector2d[] positions = {new Vector2d(2, 2), new Vector2d(3, 3)};
-        IEngine engine = new SimulationEngine(directions, map, positions);
-        engine.run();
-
-        System.out.println("System zakończył działanie!");
+        Application.launch(App.class, args);
     }
 
 

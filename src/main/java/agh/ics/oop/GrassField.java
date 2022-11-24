@@ -14,7 +14,7 @@ public class GrassField extends AbstractWorldMap {
         this.grassN = n;
         this.maxSpawnRange = (int) Math.sqrt(grassN * 10);
         this.minSpawnRange = 0;
-        grasses = new ArrayList<>();
+        this.grasses = new ArrayList<>();
 
         for (int i = 0; i < grassN; i++) {
             while (true)
@@ -50,11 +50,17 @@ public class GrassField extends AbstractWorldMap {
         if (position.precedes(mapBorderBL) &&
                 position.follows(mapBorderTR) &&
                 !(objMovingTo instanceof Animal)) {
+            //animal can move to desired coords
+            //now lets check if the move is going to happen on grass
             if (objMovingTo instanceof Grass) {
+                // we would want to remove the grass, but first let us spawn another one explanation down below
+                // try spawning the grass until it succeeds
                 while (true)
-                    if(spawnGrassRandomly())
+                    if (spawnGrassRandomly())
                         break;
-                grasses.remove(objMovingTo);
+                Grass grassToRemove = (Grass) objMovingTo; // we delete after just to make sure the grass doesn't reappear
+                grasses.remove(grassToRemove);
+                mapBorder.removeElement(grassToRemove.getPosition());
             }
             return true;
         }
@@ -66,7 +72,10 @@ public class GrassField extends AbstractWorldMap {
         int randomY = (int) (Math.random() * maxSpawnRange) + minSpawnRange;
         Vector2d randomPos = new Vector2d(randomX, randomY);
         if (objectAt(randomPos) == null) {
-            grasses.add(new Grass(randomPos));
+            Grass grassToAdd = new Grass(randomPos);
+            grasses.add(grassToAdd);
+            grassToAdd.addObserver(this.mapBorder);
+            mapBorder.addElement(grassToAdd.getPosition());
             return true;
         }
         return false;
@@ -74,32 +83,21 @@ public class GrassField extends AbstractWorldMap {
 
     public boolean spawnGrassAt(Vector2d position) {
         if (objectAt(position) == null) {
-            grasses.add(new Grass(position));
+            Grass grassToAdd = new Grass(position);
+            grasses.add(grassToAdd);
+            grassToAdd.addObserver(this.mapBorder);
+            mapBorder.addElement(grassToAdd.getPosition());
             return true;
         }
         return false;
     }
 
-    public Vector2d getDrawLowerLeft() {
-        Vector2d drawLowerLeft = mapBorderTR;
-        for (Vector2d pos : animals.keySet()) {
-            drawLowerLeft = drawLowerLeft.lowerLeft(pos);
-        }
-        for (Grass grass : grasses) {
-            drawLowerLeft = drawLowerLeft.lowerLeft(grass.getPosition());
-        }
-        return drawLowerLeft;
+    public Vector2d getDrawLowerLeft(){
+        return mapBorder.getLowerLeft();
     }
 
-    public Vector2d getDrawUpperRight() {
-        Vector2d drawUpperRight = mapBorderBL;
-        for (Vector2d pos : animals.keySet()) {
-            drawUpperRight = drawUpperRight.upperRight(pos);
-        }
-        for (Grass grass : grasses) {
-            drawUpperRight = drawUpperRight.upperRight(grass.getPosition());
-        }
-        return drawUpperRight;
+    public Vector2d getDrawUpperRight(){
+        return mapBorder.getUpperRight();
     }
 
 }

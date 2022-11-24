@@ -38,20 +38,12 @@ public class SimulationEngine implements IEngine{
 
     @Override
     public void run() {
-
-        JFrame jFrame = new JFrame();
-        JTextArea text = new JTextArea();
-        text.setText(map.toString());
-        jFrame.add(text);
-        jFrame.setSize(300,300);
-        jFrame.setVisible(true);
         int numOfAnimals = initials.length;
         int numOfMoves = moveDirections.length;
         int i = 0;
         while (i < numOfMoves){
             animals.get(i%numOfAnimals).move(moveDirections[i]);
             sleep();
-            text.setText(map.toString());
             i++;
         }
 

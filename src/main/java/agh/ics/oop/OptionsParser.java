@@ -30,7 +30,7 @@ public class OptionsParser {
                     accepted++;
                     break;
                 default:
-                    break;
+                    throw new IllegalArgumentException(str + " is not legal move specification");
             }
         }
         return Arrays.copyOfRange(res,0, accepted);
