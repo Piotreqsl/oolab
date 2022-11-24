@@ -1,57 +1,73 @@
 package agh.ics.oop;
 
-import javafx.scene.control.Label;
+import agh.ics.oop.gui.App;
+import agh.ics.oop.gui.IAnimalObserver;
 
-import javax.swing.*;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
-public class SimulationEngine implements IEngine{
+import java.util.List;
 
-    private MoveDirection[] moveDirections;
-    private IWorldMap map;
-    private Vector2d[] initials;
-    private ArrayList<Animal> animals;
+public class SimulationEngine implements IEngine, Runnable {
 
-    public SimulationEngine(MoveDirection[] tab, IWorldMap map, Vector2d[] initials){
-        this.moveDirections = tab;
-        this.map = map;
-        this.initials = initials;
-        this.animals = new ArrayList<Animal>();
+    private MoveDirection[] moves;
+    private final List<Animal> animals;
+    private List<IAnimalObserver> observers = new ArrayList<>();
+    private int moveDelay = 0;
 
-        for(var pos : initials){
-            Animal newAnimal = new Animal(map,pos);
-            if(map.place(newAnimal))
-                animals.add(newAnimal);
-
+    public SimulationEngine(MoveDirection[] moves, IWorldMap map, Vector2d[] animalsPositions) {
+        this.moves = moves;
+        this.animals = new ArrayList<>();
+        for (Vector2d pos : animalsPositions) {
+            Animal animalToAdd = new Animal(map, pos);
+            if (map.place(animalToAdd))
+                animals.add(animalToAdd);
         }
-
 
     }
 
-    private void sleep(){
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            Thread.currentThread().interrupt();
+    public SimulationEngine(IWorldMap map, Vector2d[] animalsPositions) {
+        this.moves = new MoveDirection[0];
+        this.animals = new ArrayList<>();
+        for (Vector2d pos : animalsPositions) {
+            Animal animalToAdd = new Animal(map, pos);
+            if (map.place(animalToAdd))
+                animals.add(animalToAdd);
         }
+
+    }
+
+    public Animal getAnimal(int idx) {
+        return animals.get(idx);
+    }
+
+    public void setMoveDelay(int val) {
+        this.moveDelay = val;
+    }
+
+    public void addObserver(IAnimalObserver app) {
+        this.observers.add(app);
+    }
+
+    public void setMoves(MoveDirection[] directions) {
+        this.moves = directions;
     }
 
     @Override
     public void run() {
-        int numOfAnimals = initials.length;
-        int numOfMoves = moveDirections.length;
         int i = 0;
-        while (i < numOfMoves){
-            animals.get(i%numOfAnimals).move(moveDirections[i]);
-            sleep();
+        for (MoveDirection move : this.moves) {
+            animals.get(i).move(move);
             i++;
+            if (i == animals.size())
+                i = 0;
+            for (IAnimalObserver observer : observers) {
+                observer.animalMoved();
+            }
+            try {
+                System.out.println("Sleeping..");
+                Thread.sleep(this.moveDelay);
+            } catch (InterruptedException ex) {
+                System.out.println("Interrupted -> " + ex);
+            }
         }
-
-
-
-    }
-
-    public Animal getAnimal(int idx){
-        return animals.get(idx);
     }
 }

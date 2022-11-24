@@ -1,5 +1,6 @@
 package agh.ics.oop;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -7,7 +8,8 @@ public class AnimalIntegrationTest {
 
     @Test
     public void directionTest(){
-        Animal animal = new Animal();
+        RectangularMap testMap = new RectangularMap(5, 5);
+        Animal animal = new Animal(testMap, new Vector2d(2, 2));
 
         animal.move(MoveDirection.RIGHT);
         animal.move(MoveDirection.RIGHT);
@@ -26,7 +28,8 @@ public class AnimalIntegrationTest {
 
     @Test
     public void movementTest(){
-        Animal animal = new Animal();
+        RectangularMap testMap = new RectangularMap(5, 5);
+        Animal animal = new Animal(testMap, new Vector2d(2, 2));
 
         animal.move(MoveDirection.FORWARD);
         animal.move(MoveDirection.FORWARD);
@@ -80,8 +83,15 @@ public class AnimalIntegrationTest {
 
 
         String[] test_args = {"f", "blad", "forward", "INV"};
-        MoveDirection[] expected = {MoveDirection.FORWARD, MoveDirection.FORWARD};
-        assertArrayEquals(expected, parser.parse(test_args));
+        //MoveDirection[] expected = {MoveDirection.FORWARD, MoveDirection.FORWARD};
+        try {
+            MoveDirection[] output = parser.parse(test_args);
+            Assertions.fail("Program winien był rzucic wyjątgek");
+        }
+        catch (IllegalArgumentException ex){
+            Assertions.assertTrue(true, "Pomyślnie złapano wyjątek");
+        }
+
 
 
 
@@ -93,8 +103,12 @@ public class AnimalIntegrationTest {
 
 
         String[] test_args3 = {"testowe", "losowe", "argumenty"};
-        MoveDirection[] expected2 = {};
-        assertArrayEquals(expected2, parser.parse(test_args3));
+        try{
+            MoveDirection[] output = parser.parse(test_args);
+            Assertions.fail("Program winien był rzucic wyjątgek");
+        }catch(IllegalArgumentException ex){
+            Assertions.assertTrue(true, "Pomyślnie złapano wyjątek");
+        }
 
 
     }

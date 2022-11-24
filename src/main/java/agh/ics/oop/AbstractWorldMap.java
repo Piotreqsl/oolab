@@ -43,7 +43,7 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
             mapBorder.addElement(animal.getPosition());
             return true;
         }
-        throw new IllegalArgumentException(animal.getPosition() + " is not a valid position to place to");
+        throw new IllegalArgumentException(animal.getPosition() + " is not a valid position");
     }
 
     public boolean isOccupied(Vector2d position) {

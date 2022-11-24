@@ -23,8 +23,13 @@ public class GrassFieldTest {
         GrassField map = new GrassField(10);
         Assertions.assertTrue(map.place(new Animal(map, new Vector2d(-1, -1))));
         Assertions.assertTrue(map.place(new Animal(map, new Vector2d(9, 9))));
-        Assertions.assertFalse(map.place(new Animal(map, new Vector2d(9, 9))), "Nie można zduplikować");
-
+        //Assertions.assertFalse(map.place(new Animal(map, new Vector2d(9, 9))), "Nie można zduplikować");
+        try{
+            map.place(new Animal(map, new Vector2d(9, 9)));
+            Assertions.fail("Nie można zduplikować");
+        }catch(IllegalArgumentException ex){
+            Assertions.assertTrue(true);
+        }
     }
 
     @Test

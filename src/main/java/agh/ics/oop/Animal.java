@@ -1,68 +1,53 @@
 package agh.ics.oop;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Animal extends AbstractWorldMapElement {
+    private MapDirection direction = MapDirection.NORTH;
+    private IWorldMap map;
 
-    private MapDirection orientation = MapDirection.NORTH;
-    private List<IPositionChangeObserver> observers;
-     IWorldMap map;
-
-    public Animal(){
-        super(new Vector2d(2,2));
-        this.map = new RectangularMap(4,4);
-        this.observers = new ArrayList<>();
-    }
-
-    public Animal(IWorldMap map){
-        super(new Vector2d(2,2));
-        this.map = map;
-        this.observers = new ArrayList<>();
-    }
-
-    public Animal(IWorldMap map, Vector2d initialPosition){
+    public Animal(IWorldMap map, Vector2d initialPosition) {
         super(initialPosition);
         this.map = map;
         this.observers = new ArrayList<>();
     }
 
-    @Override
     public String toString() {
-        return orientation.toString();
+        return switch (this.direction) {
+            case NORTH -> "^";
+            case EAST -> ">";
+            case SOUTH -> "v";
+            case WEST -> "<";
+        };
     }
 
+    public MapDirection getOrientation() {
+        return this.direction;
+    }
 
-
-
-
-    public void move(MoveDirection direction){
-        switch (direction){
-            case LEFT -> {
-                this.orientation = this.orientation.previous();
-            }
-            case RIGHT -> {
-                this.orientation = this.orientation.next();
-            }
-            case FORWARD -> {
-                Vector2d moveDir = this.orientation.toUnitVector();
-                Vector2d allegedNew = this.position.add(moveDir);
-                if(map.canMoveTo(allegedNew)){
-                    positionChanged(allegedNew);
-                }
-            }
-            case BACKWARD -> {
-                Vector2d moveDir = this.orientation.toUnitVector();
-                Vector2d allegedNew = this.position.subtract(moveDir);
-                if(map.canMoveTo(allegedNew)){
-
-                    positionChanged(allegedNew);
-                }
-            }
+    void move(MoveDirection direction) {
+        boolean opposite = false;
+        switch (direction) {
+            case RIGHT:
+                this.direction = this.direction.next();
+                break;
+            case LEFT:
+                this.direction = this.direction.previous();
+                break;
+            case BACKWARD:
+                opposite = true;
+            case FORWARD:
+                Vector2d movementChange = this.direction.toUnitVector();
+                if (opposite)
+                    movementChange = movementChange.opposite();
+                Vector2d newPos = this.position.add(movementChange);
+                if (map.canMoveTo(newPos))
+                    positionChanged(newPos);
+                break;
         }
-    }
 
+    }
 
     void positionChanged(Vector2d newPos) {
         for (IPositionChangeObserver observer : observers)
@@ -70,11 +55,13 @@ public class Animal extends AbstractWorldMapElement {
         this.position = newPos;
     }
 
-    public MapDirection getOrientation() {
-        return orientation;
-    }
-
-    public Vector2d getPosition() {
-        return position;
+    @Override
+    public String getFileName() {
+        return switch (this.direction) {
+            case NORTH -> "up.png";
+            case EAST -> "right.png";
+            case SOUTH -> "down.png";
+            case WEST -> "left.png";
+        };
     }
 }
