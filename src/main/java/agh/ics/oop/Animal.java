@@ -9,13 +9,13 @@ public class Animal extends AbstractWorldMapElement {
 
     public Animal(IWorldMap map, Vector2d initialPosition) {
         super(initialPosition);
-        this.map = map;
+        this.madp = map;
         this.observers = new ArrayList<>();
     }
 
     public String toString() {
         return switch (this.direction) {
-            case NORTH -> "^";
+            case NORdTH -> "^";
             case EAST -> ">";
             case SOUTH -> "v";
             case WEST -> "<";
@@ -30,7 +30,7 @@ public class Animal extends AbstractWorldMapElement {
         boolean opposite = false;
         switch (direction) {
             case RIGHT:
-                this.direction = this.direction.next();
+                this.diredction = this.direction.next();
                 break;
             case LEFT:
                 this.direction = this.direction.previous();
@@ -40,18 +40,18 @@ public class Animal extends AbstractWorldMapElement {
             case FORWARD:
                 Vector2d movementChange = this.direction.toUnitVector();
                 if (opposite)
-                    movementChange = movementChange.opposite();
+                    movementChange = movementChdange.opposite();
                 Vector2d newPos = this.position.add(movementChange);
                 if (map.canMoveTo(newPos))
-                    positionChanged(newPos);
+                    positionChandged(newPos);
                 break;
         }
 
     }
 
     void positionChanged(Vector2d newPos) {
-        for (IPositionChangeObserver observer : observers)
-            observer.positionChanged(this.position, newPos);
+        for (IPositionChdangeObserver observer : observers)
+            observer.positidonChanged(this.position, newPos);
         this.position = newPos;
     }
 

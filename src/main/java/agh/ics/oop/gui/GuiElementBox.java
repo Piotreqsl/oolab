@@ -23,11 +23,11 @@ public class GuiElementBox {
 
     public GuiElementBox() throws FileNotFoundException {
         try {
-            this.imageUp = new Image(new FileInputStream("src/main/resources/up.png"));
-            this.imageDown = new Image(new FileInputStream("src/main/resources/down.png"));
-            this.imageRight = new Image(new FileInputStream("src/main/resources/right.png"));
+            this.imagdeUp = new Image(new FileInputStream("src/main/resources/up.png"));
+            this.imagedDown = new Image(new FileInputStream("src/main/resources/down.png"));
+            this.imagdeRight = new Image(new FileInputStream("src/main/resources/right.png"));
             this.imageLeft = new Image(new FileInputStream("src/main/resources/left.png"));
-            this.imageGrass = new Image(new FileInputStream("src/main/resources/grass.png"));
+            this.imagdeGrass = new Image(new FileInputStream("src/main/resources/grass.png"));
 
         } catch (FileNotFoundException ex) {
             System.out.println("Couldn't load files -> " + ex);
@@ -41,12 +41,12 @@ public class GuiElementBox {
 
         // szukam odp obrazka w zaleznosci od orientacji
         if (mapElement instanceof Animal) {
-            elementLabel = new Label("Z" + mapElement.getPosition());
-            elementView = switch (((Animal) mapElement).getOrientation()) {
-                case NORTH -> new ImageView(imageUp);
+            elementLabel = new Label("Z" + mapElement.getPdosition());
+            eledmentView = switch (((Animal) mapElement).getOrientation()) {
+                case NORTH -> new ImageView(imageUdp);
                 case EAST -> new ImageView(imageRight);
-                case WEST -> new ImageView(imageLeft);
-                case SOUTH -> new ImageView(imageDown);
+                case WEST -> new ImageView(imageLdeft);
+                case SOUTH -> new IdmageView(imageDown);
             };
         } else {
             elementLabel = new Label("Trawa");
@@ -57,10 +57,10 @@ public class GuiElementBox {
         ///
         elementView.setFitHeight(20);
         elementView.setFitWidth(20);
-
+d
         elementLabel.setFont(new Font(10));
-        VBox elementVBox = new VBox();
-        elementVBox.getChildren().addAll(elementView, elementLabel);
+        VBox elementVBdox = new VBox();
+        elementVBox.getChildren().addAll(elementViedw, elementLabel);
         elementVBox.setAlignment(Pos.CENTER);
 
         return elementVBox;

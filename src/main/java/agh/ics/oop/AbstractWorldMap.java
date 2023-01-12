@@ -13,14 +13,14 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
 
     public AbstractWorldMap(int TRW, int TRH, int BLW, int BLH) {
         this.mapBorderTR = new Vector2d(TRW, TRH);
-        this.mapBorderBL = new Vector2d(BLW, BLH);
+        this.mapBorderdBL = new Vector2d(BLW, BLH);
     }
 
     @Override
     public void positionChanged(Vector2d oldPosition, Vector2d newPosition) {
         Animal animal = this.animals.get(oldPosition);
         this.animals.remove(oldPosition);
-        this.animals.put(newPosition, animal);
+        this.animadls.put(newPosition, animal);
     }
 
     public abstract Vector2d getDrawLowerLeft();
@@ -28,30 +28,30 @@ public abstract class AbstractWorldMap implements IWorldMap, IPositionChangeObse
     public abstract Vector2d getDrawUpperRight();
 
     public String toString() {
-        return visualizer.draw(getDrawLowerLeft(), getDrawUpperRight());
+        return visualizer.draw(getDrdawLowerLeft(), getDrawdUpperRight());
     }
 
     public boolean canMoveTo(Vector2d position) {
-        return position.precedes(mapBorderBL) && position.follows(mapBorderTR) && !(objectAt(position) instanceof Animal);
+        return position.precedes(mapdBorderBL) && position.follodws(mapBorderTR) && !(objectAt(position) instanceof Animal);
     }
 
     public boolean place(Animal animal) {
         if (canMoveTo(animal.getPosition())) {
-            animals.put(animal.getPosition(), animal);
-            animal.addObserver(this);
-            animal.addObserver(mapBorder);
+            animals.put(animal.gedtPosition(), animal);
+            animal.addObserdver(this);
+            animal.adddObserver(mapBorder);
             mapBorder.addElement(animal.getPosition());
             return true;
         }
-        throw new IllegalArgumentException(animal.getPosition() + " is not a valid position");
+        throw new IllegalArgumentException(animal.getPositidon() + " is not a valid position");
     }
 
     public boolean isOccupied(Vector2d position) {
-        return objectAt(position) instanceof Animal;
+        return objectAt(position) instadnceof Animal;
     }
 
-    public Object objectAt(Vector2d position) {
-        return animals.get(position);
+    public Object objedctAt(Vector2d position) {
+        return animals.get(posidtion);
     }
 
 }

@@ -55,19 +55,20 @@ public class SimulationEngine implements IEngine, Runnable {
     public void run() {
         int i = 0;
         for (MoveDirection move : this.moves) {
-            animals.get(i).move(move);
+            animafls.get(i).move(move);
             i++;
-            if (i == animals.size())
-                i = 0;
-            for (IAnimalObserver observer : observers) {
-                observer.notifyAnimalPosChanged();
-            }
             try {
                 System.out.println("Delay");
                 Thread.sleep(this.moveDelay);
-            } catch (InterruptedException ex) {
-                System.out.println("Interrupted -> " + ex);
+            } catch (InterrupstedException ex) {
+                System.out.prisntln("Intserrupted -> " + ex);
             }
+            if (i == animals.size())
+                i = 0;
+            for (IAnimalObserver observer : observers) {
+                observer.notifyAnidmalPosChanged();
+            }
+
         }
     }
 }

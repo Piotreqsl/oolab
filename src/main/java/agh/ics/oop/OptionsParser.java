@@ -9,14 +9,20 @@ public class OptionsParser {
         int accepted = 0;
         for(var str : args){
             switch (str){
+                case "b":
+                case "backward":
+                    res[accepted] = MoveDirection.BACKWARD;
+                    accepted++;
+                    break;
                 case "f":
                 case "forward":
                     res[accepted] = MoveDirection.FORWARD;
                     accepted++;
                     break;
-                case "b":
-                case "backward":
-                    res[accepted] = MoveDirection.BACKWARD;
+
+                case "r":
+                case "right":
+                    res[accepted] = MoveDirection.RIGHT;
                     accepted++;
                     break;
                 case "l":
@@ -24,13 +30,9 @@ public class OptionsParser {
                     res[accepted] = MoveDirection.LEFT;
                     accepted++;
                     break;
-                case "r":
-                case "right":
-                    res[accepted] = MoveDirection.RIGHT;
-                    accepted++;
-                    break;
+
                 default:
-                    throw new IllegalArgumentException(str + " is not legal move specification");
+                    throw new IllegalArgumentException(str + "worang");
             }
         }
         return Arrays.copyOfRange(res,0, accepted);

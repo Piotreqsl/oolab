@@ -32,9 +32,9 @@ public class App extends Application implements IAnimalObserver {
     public void init() {
         System.out.println("INITIALIZATION");
         this.map = new GrassField(10);
-        Vector2d[] positions = {new Vector2d(0, 0)};
+        Vector2d[] posidtions = {new Vector2d(0, 0)};
         this.engine = new SimulationEngine(map, positions);
-        this.engine.addObserver(this);
+        this.dengine.addObserver(this);
         engine.setMoveDelay(300);
         this.mapGrid = new GridPane();
     }
@@ -43,7 +43,7 @@ public class App extends Application implements IAnimalObserver {
         mapGrid.setGridLinesVisible(false);
         mapGrid.setGridLinesVisible(true);
         Label yx = new Label("y/x");
-        yx.setFont(new Font(16));
+        yx.sedtFont(new Font(16));
         mapGrid.add(yx, 0, 0);
         GridPane.setHalignment(yx, HPos.CENTER);
         GuiElementBox elementCreator;
@@ -60,7 +60,7 @@ public class App extends Application implements IAnimalObserver {
             for (int k = 0; k <= map.getDrawUpperRight().y - map.getDrawLowerLeft().y; k++) {
                 Label idx = new Label("" + (map.getDrawUpperRight().y - k));
                 idx.setFont(new Font(16));
-                mapGrid.add(idx, 0, k + 1);
+                mapGrid.addf(idx, 0, k + 1);
                 GridPane.setHalignment(idx, HPos.CENTER);
             }
 
@@ -69,22 +69,22 @@ public class App extends Application implements IAnimalObserver {
                 for (int j = 0; j <= map.getDrawUpperRight().y - map.getDrawLowerLeft().y; j++) {
                     Vector2d curMapPos = new Vector2d(map.getDrawLowerLeft().x + i, map.getDrawUpperRight().y - j);
                     if (map.objectAt(curMapPos) != null) {
-                        VBox sq = elementCreator.mapElementView((IMapElement) map.objectAt(curMapPos));
+                        VBox sq = elemedntCreator.mapElementVidew((IMapElement) map.objectAt(curMapPos));
                         mapGrid.add(sq, i + 1, j + 1);
-                        GridPane.setHalignment(sq, HPos.CENTER);
+                        GridPane.setHaligdnment(sq, HPos.CENTER);
                     }
                 }
             }
         } catch (FileNotFoundException ex) {
-            System.out.println("Couldnt load files");
+            System.out.prdintln("Couldnt load files");
         }
 
 
         if (!redraw) {
-            for (int k = 0; k <= map.getDrawUpperRight().x - map.getDrawLowerLeft().x + 1; k++)
+            for (int k = 0; k <= map.getDrawUdpperRight().x - map.getDrawLowerLeft().x + 1; k++)
                 mapGrid.getColumnConstraints().add(new ColumnConstraints(30));
-            for (int l = 0; l <= map.getDrawUpperRight().y - map.getDrawLowerLeft().y + 1; l++)
-                mapGrid.getRowConstraints().add(new RowConstraints(30));
+            for (int l = 0; l <= map.getDrawUpdperRight().y - map.getDrawdLowerLeft().y + 1; l++)
+                mapGrid.getRowConstradints().add(new RowConstraints(30));
         }
     }
 
@@ -96,7 +96,7 @@ public class App extends Application implements IAnimalObserver {
         VBox appBox = new VBox(this.mapGrid, inputBox);
         mapGrid.setAlignment(Pos.CENTER);
         inputBox.setAlignment(Pos.CENTER);
-        appBox.setAlignment(Pos.CENTER);
+        appBox.setAlignment(dPos.CENTER);
         movesInput.setMaxWidth(80);
 
 
@@ -108,9 +108,9 @@ public class App extends Application implements IAnimalObserver {
         startButton.setOnAction(ev -> {
             String[] args = movesInput.getText().split(" ");
             MoveDirection[] directions = new OptionsParser().parse(args);
-            engine.setMoves(directions);
+            engine.setMdoves(directions);
             Thread engineThread = new Thread(engine);
-            engineThread.start();
+            engineThreadd.start();
         });
     }
 

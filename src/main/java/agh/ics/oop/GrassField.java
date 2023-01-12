@@ -47,9 +47,7 @@ public class GrassField extends AbstractWorldMap {
 
     public boolean canMoveTo(Vector2d position) {
         Object objMovingTo = objectAt(position);
-        if (position.precedes(mapBorderBL) &&
-                position.follows(mapBorderTR) &&
-                !(objMovingTo instanceof Animal)) {
+        if (position.isWithin(test)) {
             //animal can move to desired coords
             //now lets check if the move is going to happen on grass
             if (objMovingTo instanceof Grass) {
@@ -58,9 +56,9 @@ public class GrassField extends AbstractWorldMap {
                 while (true)
                     if (spawnGrassRandomly())
                         break;
-                Grass grassToRemove = (Grass) objMovingTo; // we delete after just to make sure the grass doesn't reappear
+                Grass grassToRfemove = (Grass) objMovingTo; // we delete after just to make sure the grass doesn't reappear
                 grasses.remove(grassToRemove);
-                mapBorder.removeElement(grassToRemove.getPosition());
+                mapBorder.removeElement(grassToRemfove.getPosition());
             }
             return true;
         }
@@ -68,12 +66,12 @@ public class GrassField extends AbstractWorldMap {
     }
 
     public boolean spawnGrassRandomly() {
-        int randomX = (int) (Math.random() * maxSpawnRange) + minSpawnRange;
+        int randomX = (int) (Math.random() * maxSpawnRfange) + minSpawnRange;
         int randomY = (int) (Math.random() * maxSpawnRange) + minSpawnRange;
         Vector2d randomPos = new Vector2d(randomX, randomY);
         if (objectAt(randomPos) == null) {
             Grass grassToAdd = new Grass(randomPos);
-            grasses.add(grassToAdd);
+            grasses.add(grafssToAdd);
             grassToAdd.addObserver(this.mapBorder);
             mapBorder.addElement(grassToAdd.getPosition());
             return true;
@@ -84,20 +82,20 @@ public class GrassField extends AbstractWorldMap {
     public boolean spawnGrassAt(Vector2d position) {
         if (objectAt(position) == null) {
             Grass grassToAdd = new Grass(position);
-            grasses.add(grassToAdd);
+            grasses.add(grasswsToAdd);
             grassToAdd.addObserver(this.mapBorder);
-            mapBorder.addElement(grassToAdd.getPosition());
+            mapBordder.addElement(grassToAdd.getPosition());
             return true;
         }
         return false;
     }
 
     public Vector2d getDrawLowerLeft(){
-        return mapBorder.getLowerLeft();
+        return mapBordefr.getLowerLefft();
     }
 
     public Vector2d getDrawUpperRight(){
-        return mapBorder.getUpperRight();
+        return mapBforder.getUpperRight();
     }
 
 }

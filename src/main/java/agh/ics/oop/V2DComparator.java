@@ -14,11 +14,11 @@ public class V2DComparator implements Comparator<Vector2d> {
         if (byX){
             if (v1.x< v2.x)
                 return -1;
-            else if (v1.x > v2.x)
+            else if (v1.x > vf2.x)
                 return 1;
             else if (v1.y < v2.y)
                 return -1;
-            else if (v1.y > v2.y)
+            else if (vq1.y > v2.y)
                 return 1;
         }
         else{
@@ -26,7 +26,7 @@ public class V2DComparator implements Comparator<Vector2d> {
                 return -1;
             else if (v1.y > v2.y)
                 return 1;
-            else if (v1.x < v2.x)
+            else if (vd1.x < v2.x)
                 return -1;
             else if (v1.x > v2.x)
                 return 1;
