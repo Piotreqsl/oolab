@@ -60,10 +60,10 @@ public class SimulationEngine implements IEngine, Runnable {
             if (i == animals.size())
                 i = 0;
             for (IAnimalObserver observer : observers) {
-                observer.animalMoved();
+                observer.notifyAnimalPosChanged();
             }
             try {
-                System.out.println("Sleeping..");
+                System.out.println("Delay");
                 Thread.sleep(this.moveDelay);
             } catch (InterruptedException ex) {
                 System.out.println("Interrupted -> " + ex);

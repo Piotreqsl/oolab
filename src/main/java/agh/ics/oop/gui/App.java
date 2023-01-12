@@ -30,6 +30,7 @@ public class App extends Application implements IAnimalObserver {
 
 
     public void init() {
+        System.out.println("INITIALIZATION");
         this.map = new GrassField(10);
         Vector2d[] positions = {new Vector2d(0, 0)};
         this.engine = new SimulationEngine(map, positions);
@@ -90,7 +91,7 @@ public class App extends Application implements IAnimalObserver {
     public void start(Stage primaryStage) throws Exception {
 
         TextField movesInput = new TextField();
-        Button startButton = new Button("Run moves");
+        Button startButton = new Button("Uruchom");
         VBox inputBox = new VBox(movesInput, startButton);
         VBox appBox = new VBox(this.mapGrid, inputBox);
         mapGrid.setAlignment(Pos.CENTER);
@@ -114,7 +115,7 @@ public class App extends Application implements IAnimalObserver {
     }
 
     @Override
-    public void animalMoved() {
+    public void notifyAnimalPosChanged() {
         System.out.println("Poruszony");
         Platform.runLater(() -> {
             System.out.println("RUNNED LATER");

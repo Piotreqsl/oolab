@@ -3,7 +3,7 @@ package agh.ics.oop;
  * The interface responsible for elements created on map.
  * Assumes that Vector2d is defined.
  *
- * @author wlgs
+ * @author Piotreqls
  */
 public interface IMapElement {
 

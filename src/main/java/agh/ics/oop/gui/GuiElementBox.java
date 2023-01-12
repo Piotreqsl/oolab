@@ -38,8 +38,10 @@ public class GuiElementBox {
     public VBox mapElementView(IMapElement mapElement) {
         Label elementLabel;
         ImageView elementView;
+
+        // szukam odp obrazka w zaleznosci od orientacji
         if (mapElement instanceof Animal) {
-            elementLabel = new Label("Z " + mapElement.getPosition());
+            elementLabel = new Label("Z" + mapElement.getPosition());
             elementView = switch (((Animal) mapElement).getOrientation()) {
                 case NORTH -> new ImageView(imageUp);
                 case EAST -> new ImageView(imageRight);
@@ -50,8 +52,12 @@ public class GuiElementBox {
             elementLabel = new Label("Trawa");
             elementView = new ImageView(imageGrass);
         }
-        elementView.setFitWidth(20);
+        /// USTAWIENIA WIZUALNE TUTAJ
+
+        ///
         elementView.setFitHeight(20);
+        elementView.setFitWidth(20);
+
         elementLabel.setFont(new Font(10));
         VBox elementVBox = new VBox();
         elementVBox.getChildren().addAll(elementView, elementLabel);
